@@ -39,6 +39,9 @@ WINAPI WinMain(
 	keybd_event(0x5b ,0xb8,0 , 0); //Alt Press
 	keybd_event(0x5b,0xb8,KEYEVENTF_KEYUP,0); // Alt Release
 
+	Sleep(10);
+	//tagPOINTER_INPUT_TYPE::PT_MOUSE
+
     contact.pointerInfo.pointerType = PT_TOUCH; //we're sending touch input
     contact.pointerInfo.pointerId = 0;          //contact 0
     contact.pointerInfo.ptPixelLocation.x = 300;
@@ -59,7 +62,7 @@ WINAPI WinMain(
     //
     // inject a touch down
     //
-    bRet = InjectTouchInput(1, &contact);
+    //bRet = InjectTouchInput(1, &contact);
 
     //
     // if touch down was succesfull, send a touch up
@@ -76,16 +79,22 @@ WINAPI WinMain(
 
 	//Setting the Pointer Flag to Drag
 
-	contact.pointerInfo.pointerFlags = POINTER_FLAG_UPDATE | POINTER_FLAG_INRANGE | POINTER_FLAG_INCONTACT;
-	for(int i=0;i<1000;i++){
-		contact.pointerInfo.ptPixelLocation.x--; // updating the X Co-ordinate to x-100 pixels
-		InjectTouchInput(1, &contact);
-		Sleep(10);
-	}
+	//contact.pointerInfo.pointerFlags = POINTER_FLAG_UP | POINTER_FLAG_INRANGE | POINTER_FLAG_INCONTACT;
+	//for(int i=0;i<1000;i++){
+	//	contact.pointerInfo.ptPixelLocation.x--; // updating the X Co-ordinate to x-100 pixels
+	//	InjectTouchInput(1, &contact);
+	//	Sleep(10);
+	//}
 	// Lifts the touch input UP
 	contact.pointerInfo.pointerFlags = POINTER_FLAG_UP;
 	InjectTouchInput(1, &contact);
 
-    return 0;
+
+	DWORD dx = 0;
+	DWORD dy = 0;
+	for (int i=0; i< 1000; i++, dx++, dy++){
+		mouse_event(MOUSEEVENTF_MOVE , dx, dy, 0, 0 );
+	}
+	return 0;
 }
 
