@@ -6,6 +6,11 @@
 #include "test1.h"
 #include <string>
 #include <fstream>
+#include <iostream>
+#include <windows.h>
+#include <Windowsx.h>
+#include <hash_map>
+#include <utility>
 #define MAX_LOADSTRING 100
 
 using namespace std;
@@ -19,6 +24,9 @@ BOOL lockState = TRUE; // setting whether to log or not log the key
 ofstream out; // file output variable
 
 INPUT mouse_input; // output to mouse
+wifstream infile; 
+wstring line;
+std::hash_map<int, pair<float, float> > coordinate_mapping ;
 
 
 // Forward declarations of functions included in this code module:
@@ -116,7 +124,74 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    mouse_input.mi.dx =  300*(65536/GetSystemMetrics(SM_CXSCREEN));//x being coord in pixels
    mouse_input.mi.dy =  300*(65536/GetSystemMetrics(SM_CYSCREEN));//y being coord in pixels
    mouse_input.mi.dwFlags = MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE;
-   SendInput(1,&mouse_input,sizeof(mouse_input));
+   //SendInput(1,&mouse_input,sizeof(mouse_input));
+   
+   
+   pair<float, float>  my_pair(0,0);
+   coordinate_mapping[27] = my_pair;
+   my_pair.first = 2.3;
+   my_pair.second = 0;
+   coordinate_mapping[112] = my_pair;
+   my_pair.first = 4;
+   my_pair.second = 0;
+   coordinate_mapping[113] = my_pair;
+   my_pair.first = 5.6;
+   my_pair.second = 0;
+   coordinate_mapping[114] = my_pair;
+   my_pair.first = 7.3;
+   my_pair.second = 0;
+   coordinate_mapping[115] = my_pair;
+    my_pair.first = 9.5;
+   my_pair.second = 0;
+   coordinate_mapping[116] = my_pair;
+   my_pair.first = 11.2;
+   my_pair.second = 0;
+   coordinate_mapping[117] = my_pair;
+   my_pair.first = 14.5;
+   my_pair.second = 0;
+   coordinate_mapping[118] = my_pair;
+   my_pair.first = 12.9;
+   my_pair.second = 0;
+   coordinate_mapping[119] = my_pair;
+   my_pair.first = 14.5;
+   my_pair.second = 0;
+   coordinate_mapping[119] = my_pair;
+   my_pair.first = 16.7;
+   my_pair.second = 0;
+   coordinate_mapping[120] = my_pair;
+   my_pair.first = 18.4;
+   my_pair.second = 0;
+   coordinate_mapping[121] = my_pair;
+   my_pair.first = 20.1;
+   my_pair.second = 0;
+   coordinate_mapping[122] = my_pair;
+   my_pair.first = 21.7;
+   my_pair.second = 0;
+   coordinate_mapping[123] = my_pair;
+   my_pair.first = 24;
+   my_pair.second = 0;
+   coordinate_mapping[45] = my_pair;
+   my_pair.first = 26;
+   my_pair.second = 0;
+   coordinate_mapping[46] = my_pair;
+   my_pair.first = 0.1;
+   my_pair.second = 1.5;
+   coordinate_mapping[192] = my_pair;
+   my_pair.first = 1.9;
+   my_pair.second = 1.5;
+   coordinate_mapping[49] = my_pair;
+   my_pair.first = 3.8;
+   my_pair.second = 1.5;
+   coordinate_mapping[50] = my_pair;	
+   my_pair.first = 5.7;
+   my_pair.second = 1.5;
+   coordinate_mapping[51] = my_pair;
+   my_pair.first = 3.8;
+   my_pair.second = 1.5;
+   coordinate_mapping[50] = my_pair;
+   my_pair.first = 5.7;
+   my_pair.second = 1.5;
+   coordinate_mapping[51] = my_pair;
 
    if (!hWnd)
    {
@@ -149,9 +224,26 @@ LRESULT CALLBACK LowLevelKeyboardProc( int nCode,
            PKBDLLHOOKSTRUCT p = ( PKBDLLHOOKSTRUCT ) lParam;
 		   wstring s = std::to_wstring(p->vkCode);
 		   OutputDebugString (s.c_str());
-		   OutputDebugString (L"\n");
-		   out << p->vkCode << " " << p->time << endl;
+		   
+		   /*
+		   s = L"keyboard status:" + std::to_wstring(infile.good()) + L"\n";
+		   OutputDebugString (s.c_str());
+		   while (infile.good()) {
+				//getline ( infile, line, '\n' );
+				infile >> line;
+				//std::cout << "Line is " << line << endl;
+				OutputDebugString (line.c_str());
+				out << "Line is " << line.c_str() <<endl;
+				//printf ("%s \n", line);
+			}*/
 
+
+		   
+		   //infile >> line;
+				//std::cout << "Line is " << line << endl;
+			//OutputDebugString (line.c_str());
+
+		   out << p->vkCode << " " << p->time << endl;
            /*fEatKeystroke = (( p->vkCode == VK_TAB ) &&
                            (( p->flags & LLKHF_ALTDOWN ) != 0 )) ||
                            (( p->vkCode == VK_ESCAPE ) &&
@@ -161,19 +253,19 @@ LRESULT CALLBACK LowLevelKeyboardProc( int nCode,
 			switch (p->vkCode)
 			{
 			case 38: 
-				   mouse_input.mi.dy -= 50;
+				   mouse_input.mi.dy -=  50 ;
 			       SendInput(1,&mouse_input,sizeof(mouse_input));
 				   break;
 			case 40: 
-				   mouse_input.mi.dy += 50;
+				   mouse_input.mi.dy += 50 ;
 			       SendInput(1,&mouse_input,sizeof(mouse_input));
 				   break;
 			case 37: 
-				   mouse_input.mi.dx -= 50;
+				   mouse_input.mi.dx -= 50 ;
 			       SendInput(1,&mouse_input,sizeof(mouse_input));
 				   break;
 			case 39: 
-				   mouse_input.mi.dx += 50;
+				   mouse_input.mi.dx +=  50 ;
 			       SendInput(1,&mouse_input,sizeof(mouse_input));
 				   break;
 			}
@@ -192,13 +284,19 @@ void BlockKeyboardInput()
 {
 	if (lockState)
 	{
+		infile.open( "KeyBoardPhysicalLayout.txt");
+
 		out.open("out.txt", ios_base::app);
 	    hhkLowLevelKybd  = SetWindowsHookEx( WH_KEYBOARD_LL,
                                               LowLevelKeyboardProc,
                                               hInst,
                                               0 );
+		
 	} else {
 		out.close();
+
+		infile.close();
+
 		UnhookWindowsHookEx(hhkLowLevelKybd);
 	}
 	lockState = !(lockState);
