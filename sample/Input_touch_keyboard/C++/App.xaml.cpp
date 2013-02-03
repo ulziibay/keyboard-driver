@@ -93,6 +93,8 @@ void App::OnLaunched(LaunchActivatedEventArgs^ pArgs)
         Window::Current->Content = rootFrame;
         Window::Current->Activate();
     }, task_continuation_context::use_current());
+
+	
 }
 
 /// <summary>
@@ -112,3 +114,5 @@ void App::OnSuspending(Object^ sender, SuspendingEventArgs^ e)
         deferral->Complete();
     });
 }
+
+

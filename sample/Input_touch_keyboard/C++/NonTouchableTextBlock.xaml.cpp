@@ -13,7 +13,6 @@
 #include "pch.h"
 #include "NonTouchableTextBlock.xaml.h"
 #include "../../input_touch_injection/c++/stdafx.h"
-#include "C:\Users\trezi_000\Downloads\eigen-eigen-5097c01bcdc4\eigen-eigen-5097c01bcdc4\demos\mix_eigen_and_c\binary_library.h"
 #include <windows.h>
 
 

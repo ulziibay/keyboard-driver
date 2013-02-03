@@ -15,15 +15,17 @@
 *                                                                 *
 ******************************************************************/
 
+
 int
 WINAPI WinMain(
     _In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
     _In_ LPSTR lpCmdLine,
     _In_ int nShowCmd)
-{
+ 
     POINTER_TOUCH_INFO contact;
     BOOL bRet = TRUE;
+	return 0;
 
     //
     // assume a maximum of 10 contacts and turn touch feedback off
@@ -95,6 +97,5 @@ WINAPI WinMain(
 	for (int i=0; i< 1000; i++, dx++, dy++){
 		mouse_event(MOUSEEVENTF_MOVE , dx, dy, 0, 0 );
 	}
-	return 0;
 }
 

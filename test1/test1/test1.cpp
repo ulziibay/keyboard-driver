@@ -16,7 +16,10 @@ TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 HHOOK hhkLowLevelKybd;  // the variable to handle the low level hook
 BOOL lockState = TRUE; // setting whether to log or not log the key
-ofstream out;
+ofstream out; // file output variable
+
+INPUT mouse_input; // output to mouse
+
 
 // Forward declarations of functions included in this code module:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
@@ -108,6 +111,12 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 
    hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
       CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+   mouse_input.type = INPUT_MOUSE;
+   mouse_input.mi.mouseData=0;
+   mouse_input.mi.dx =  300*(65536/GetSystemMetrics(SM_CXSCREEN));//x being coord in pixels
+   mouse_input.mi.dy =  300*(65536/GetSystemMetrics(SM_CYSCREEN));//y being coord in pixels
+   mouse_input.mi.dwFlags = MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE;
+   SendInput(1,&mouse_input,sizeof(mouse_input));
 
    if (!hWnd)
    {
@@ -149,6 +158,25 @@ LRESULT CALLBACK LowLevelKeyboardProc( int nCode,
                            (( p->flags & LLKHF_ALTDOWN ) != 0 )) ||
                            (( p->vkCode == VK_ESCAPE ) &&
                            (( GetKeyState( VK_CONTROL ) & 0x8000) != 0 ));*/
+			switch (p->vkCode)
+			{
+			case 38: 
+				   mouse_input.mi.dy -= 50;
+			       SendInput(1,&mouse_input,sizeof(mouse_input));
+				   break;
+			case 40: 
+				   mouse_input.mi.dy += 50;
+			       SendInput(1,&mouse_input,sizeof(mouse_input));
+				   break;
+			case 37: 
+				   mouse_input.mi.dx -= 50;
+			       SendInput(1,&mouse_input,sizeof(mouse_input));
+				   break;
+			case 39: 
+				   mouse_input.mi.dx += 50;
+			       SendInput(1,&mouse_input,sizeof(mouse_input));
+				   break;
+			}
  
      }// End switch
   }// End if
