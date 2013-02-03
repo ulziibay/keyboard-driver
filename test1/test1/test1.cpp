@@ -6,6 +6,7 @@
 #include "test1.h"
 #include <string>
 #include <fstream>
+#include <vector>
 #define MAX_LOADSTRING 100
 
 using namespace std;
@@ -16,6 +17,14 @@ TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 HHOOK hhkLowLevelKybd;  // the variable to handle the low level hook
 BOOL lockState = TRUE; // setting whether to log or not log the key
+vector<PKBDLLHOOKSTRUCT> buffer;
+
+const int MOUSESTATE = 0;
+const int TOUCHSTATE = 1;
+
+// state of the keyboard
+int state = MOUSESTATE;
+
 ofstream out; // file output variable
 
 INPUT mouse_input; // output to mouse
@@ -129,6 +138,11 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
+bool isAdjacent(PKBDLLHOOKSTRUCT prevKey, PKBDLLHOOKSTRUCT currentKey)
+{
+	return false;
+}
+
 LRESULT CALLBACK LowLevelKeyboardProc( int nCode,
                                        WPARAM wParam,
                                        LPARAM lParam)
@@ -147,9 +161,58 @@ LRESULT CALLBACK LowLevelKeyboardProc( int nCode,
  
            // Get hook struct
            PKBDLLHOOKSTRUCT p = ( PKBDLLHOOKSTRUCT ) lParam;
+		   
+		   // adding the key to the buffer
+		   buffer.push_back (p);
+		   // keeping the buffer size constant
+		   if (buffer.size() > 100) {
+			   buffer.erase(buffer.begin());
+		   }
+
+		   if (state == MOUSESTATE && buffer.size() >= 40)
+		   {
+			   bool dragState = true;
+			   int dragNum = 40;
+			   for (int i = 0; i < dragNum; i++)
+			   {
+				   if (p->vkCode != buffer[0]->vkCode )
+				   {
+					   dragState = false;
+				   }
+			   }
+
+			   // if detecting drag, change state to touch
+			   if (dragState == true) state = TOUCHSTATE ;
+		   }
+
+		   if (state == MOUSESTATE)
+		   {
+			   if (isAdjacent(buffer[0], p))
+			   {
+			   } else {
+			   }
+		   }
+		   else
+		   {
+			   if (isAdjacent(buffer[0], p))
+			   {
+			   } else {
+			   }
+		   }
+
 		   wstring s = std::to_wstring(p->vkCode);
 		   OutputDebugString (s.c_str());
 		   OutputDebugString (L"\n");
+
+		   OutputDebugString(to_wstring(buffer.size()).c_str());
+		   OutputDebugString (L"\n");
+
+		   OutputDebugString((L"state:" + to_wstring(state)).c_str());
+		   OutputDebugString (L"\n");
+
+		   OutputDebugString((L"time:" + to_wstring(p->time)).c_str());
+		   OutputDebugString (L"\n");
+
 		   out << p->vkCode << " " << p->time << endl;
 
            /*fEatKeystroke = (( p->vkCode == VK_TAB ) &&
