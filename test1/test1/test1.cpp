@@ -5,6 +5,7 @@
 #include "stdafx.h"
 #include "test1.h"
 #include <string>
+#include <fstream>
 #define MAX_LOADSTRING 100
 
 using namespace std;
@@ -15,6 +16,7 @@ TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 HHOOK hhkLowLevelKybd;  // the variable to handle the low level hook
 BOOL lockState = TRUE; // setting whether to log or not log the key
+ofstream out;
 
 // Forward declarations of functions included in this code module:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
@@ -139,6 +141,7 @@ LRESULT CALLBACK LowLevelKeyboardProc( int nCode,
 		   wstring s = std::to_wstring(p->vkCode);
 		   OutputDebugString (s.c_str());
 		   OutputDebugString (L"\n");
+		   out << p->vkCode << " " << p->time << endl;
 
            /*fEatKeystroke = (( p->vkCode == VK_TAB ) &&
                            (( p->flags & LLKHF_ALTDOWN ) != 0 )) ||
@@ -161,11 +164,13 @@ void BlockKeyboardInput()
 {
 	if (lockState)
 	{
+		out.open("out.txt", ios_base::app);
 	    hhkLowLevelKybd  = SetWindowsHookEx( WH_KEYBOARD_LL,
                                               LowLevelKeyboardProc,
                                               hInst,
                                               0 );
 	} else {
+		out.close();
 		UnhookWindowsHookEx(hhkLowLevelKybd);
 	}
 	lockState = !(lockState);
