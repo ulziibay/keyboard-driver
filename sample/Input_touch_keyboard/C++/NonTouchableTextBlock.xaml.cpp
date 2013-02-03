@@ -12,6 +12,10 @@
 
 #include "pch.h"
 #include "NonTouchableTextBlock.xaml.h"
+#include "../../input_touch_injection/c++/stdafx.h"
+#include "C:\Users\trezi_000\Downloads\eigen-eigen-5097c01bcdc4\eigen-eigen-5097c01bcdc4\demos\mix_eigen_and_c\binary_library.h"
+#include <windows.h>
+
 
 using namespace SDKSample::TouchKeyboard;
 
@@ -26,6 +30,8 @@ using namespace Windows::UI::Xaml::Input;
 using namespace Windows::UI::Xaml::Media;
 using namespace Windows::UI::Xaml::Navigation;
 using namespace Windows::UI::Xaml::Automation::Peers;     // needed for FrameworkElementAutomationPeer class
+
+using namespace Windows::UI::Input;
 
 namespace SDKSample
 {
@@ -75,6 +81,7 @@ namespace SDKSample
     		InitializeComponent();
     		this->IsTabStop = true;
     		this->IsTapEnabled = true;
+		
     	}
 
     	/// <summary>
@@ -132,6 +139,16 @@ namespace SDKSample
     			currentCalendar->SecondAsPaddedString(2);
 			this->myTextBlock->Text = "A key was pressed @ " + timeOfDay + " Pressed key is "+ (int16) pressed_key;
 			Windows::System::VirtualKey space = Windows::System::VirtualKey::Space;
-    	}
+
+			
+
+		}
+		
+
+		void NonTouchableTextBlock::Window_KeyDown(object sender, RoutedEventArgs e)
+		{
+			// your code here
+		}
+
     }
 }
