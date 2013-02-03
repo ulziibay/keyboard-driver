@@ -13,13 +13,14 @@ using namespace std;
 HINSTANCE hInst;								// current instance
 TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
+HHOOK hhkLowLevelKybd;  // the variable to handle the low level hook
+BOOL lockState = TRUE; // setting whether to log or not log the key
 
 // Forward declarations of functions included in this code module:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
 BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
-BOOL lockState = FALSE;
 
 int APIENTRY _tWinMain(_In_ HINSTANCE hInstance,
                      _In_opt_ HINSTANCE hPrevInstance,
@@ -117,14 +118,57 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
-// This function blocks the input from keyboard
+LRESULT CALLBACK LowLevelKeyboardProc( int nCode,
+                                       WPARAM wParam,
+                                       LPARAM lParam)
+{
+ 
+  BOOL fEatKeystroke = FALSE;
+  if (nCode == HC_ACTION)
+  {
+	  OutputDebugString (L"seeing some actions here\n");
+     switch (wParam)
+     {
+        case WM_KEYDOWN:
+        case WM_SYSKEYDOWN:
+        case WM_KEYUP:
+        case WM_SYSKEYUP:
+ 
+           // Get hook struct
+           PKBDLLHOOKSTRUCT p = ( PKBDLLHOOKSTRUCT ) lParam;
+		   wstring s = std::to_wstring(p->vkCode);
+		   OutputDebugString (s.c_str());
+		   OutputDebugString (L"\n");
+
+           /*fEatKeystroke = (( p->vkCode == VK_TAB ) &&
+                           (( p->flags & LLKHF_ALTDOWN ) != 0 )) ||
+                           (( p->vkCode == VK_ESCAPE ) &&
+                           (( p->flags & LLKHF_ALTDOWN ) != 0 )) ||
+                           (( p->vkCode == VK_ESCAPE ) &&
+                           (( GetKeyState( VK_CONTROL ) & 0x8000) != 0 ));*/
+ 
+     }// End switch
+  }// End if
+ 
+   // Did we trap a key??
+   //return( fEatKeystroke ? 1 : CallNextHookEx( NULL, nCode, wParam, lParam ));
+  return 1;
+}// End LowLevelKeyboardProc
+ 
+// This function attaches a low level keyboard hook to the system and logs key strokes
 // using Win32 API
 void BlockKeyboardInput()
 {
+	if (lockState)
+	{
+	    hhkLowLevelKybd  = SetWindowsHookEx( WH_KEYBOARD_LL,
+                                              LowLevelKeyboardProc,
+                                              hInst,
+                                              0 );
+	} else {
+		UnhookWindowsHookEx(hhkLowLevelKybd);
+	}
 	lockState = !(lockState);
-	int i = BlockInput(TRUE);
-	wstring s = std::to_wstring(i);
-	OutputDebugString(s.c_str());
 }
 
 //
