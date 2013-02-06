@@ -1,19 +1,138 @@
-﻿Build started 2/3/2013 5:34:33 AM.
-     1>Project "C:\Users\minhtuev\Dropbox\keyboard-driver\test1\test1\test1.vcxproj" on node 2 (Rebuild target(s)).
+﻿Build started 2/3/2013 5:46:16 PM.
+     1>Project "C:\Users\minhtuev\Dropbox\keyboard-driver\test1\test1\test1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\test1.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
-         stdafx.cpp
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\test1.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt test1.cpp
          test1.cpp
-       ResourceCompile:
-         C:\Program Files (x86)\Windows Kits\8.0\bin\x86\rc.exe /D _UNICODE /D UNICODE /l"0x0409" /nologo /fo"Debug\test1.res" test1.rc 
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(195): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(201): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(204): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(210): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(216): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(222): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(225): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(228): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(231): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(240): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(243): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(246): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(249): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(252): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(255): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(258): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(264): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(270): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(273): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(279): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(282): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(285): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(289): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(291): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(292): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(294): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(295): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(297): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(298): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(300): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(301): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(304): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(306): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(307): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(309): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(310): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(312): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(313): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(315): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(316): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(319): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(321): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(322): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(324): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(325): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(327): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(328): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(330): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(331): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(333): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(334): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(337): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(339): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(340): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(342): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(343): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(345): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(346): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(348): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(349): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(352): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(354): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(355): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(357): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(358): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(360): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(361): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(363): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(364): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(367): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(369): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(370): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(372): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(373): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(376): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(378): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(379): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(381): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(382): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(385): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(387): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(388): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(390): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(391): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(393): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(394): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(396): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(397): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(400): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(402): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(403): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(405): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(406): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(408): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(409): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(412): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(414): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(415): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(417): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(418): warning C4305: '=' : truncation from 'double' to 'float'
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(436): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(437): warning C4244: '=' : conversion from 'double' to 'float', possible loss of data
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(463): warning C4244: '+=' : conversion from 'float' to 'LONG', possible loss of data
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(464): warning C4244: '+=' : conversion from 'float' to 'LONG', possible loss of data
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(482): warning C4244: '+=' : conversion from 'float' to 'LONG', possible loss of data
+     1>c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(483): warning C4244: '+=' : conversion from 'double' to 'LONG', possible loss of data
+     1>c:\program files (x86)\microsoft visual studio 11.0\vc\include\utility(138): warning C4244: 'initializing' : conversion from 'int' to 'float', possible loss of data
+                 c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(193) : see reference to function template instantiation 'std::pair<_Ty1,_Ty2>::pair<int,int>(_Other1 &&,_Other2 &&,void **)' being compiled
+                 with
+                 [
+                     _Ty1=float,
+                     _Ty2=float,
+                     _Other1=int,
+                     _Other2=int
+                 ]
+                 c:\users\minhtuev\dropbox\keyboard-driver\test1\test1\test1.cpp(193) : see reference to function template instantiation 'std::pair<_Ty1,_Ty2>::pair<int,int>(_Other1 &&,_Other2 &&,void **)' being compiled
+                 with
+                 [
+                     _Ty1=float,
+                     _Ty2=float,
+                     _Other1=int,
+                     _Other2=int
+                 ]
        Link:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\minhtuev\Dropbox\keyboard-driver\test1\Debug\test1.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"C:\Users\minhtuev\Dropbox\keyboard-driver\test1\Debug\test1.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\minhtuev\Dropbox\keyboard-driver\test1\Debug\test1.lib" /MACHINE:X86 Debug\test1.res
          Debug\stdafx.obj
          Debug\test1.obj
          test1.vcxproj -> C:\Users\minhtuev\Dropbox\keyboard-driver\test1\Debug\test1.exe
-     1>Done Building Project "C:\Users\minhtuev\Dropbox\keyboard-driver\test1\test1\test1.vcxproj" (Rebuild target(s)).
+     1>Done Building Project "C:\Users\minhtuev\Dropbox\keyboard-driver\test1\test1\test1.vcxproj" (Build target(s)).
 
 Build succeeded.
 
-Time Elapsed 00:00:03.01
+Time Elapsed 00:00:02.27

@@ -22,7 +22,8 @@ TCHAR szTitle[MAX_LOADSTRING];					// The title bar text
 TCHAR szWindowClass[MAX_LOADSTRING];			// the main window class name
 HHOOK hhkLowLevelKybd;  // the variable to handle the low level hook
 BOOL lockState = TRUE; // setting whether to log or not log the key
-vector<PKBDLLHOOKSTRUCT> buffer;
+vector<tagKBDLLHOOKSTRUCT> buffer;
+POINTER_TOUCH_INFO contact;
 
 const int MOUSESTATE = 0;
 const int TOUCHSTATE = 1;
@@ -135,7 +136,60 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    mouse_input.mi.dwFlags = MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE;
    //SendInput(1,&mouse_input,sizeof(mouse_input));
    
-   
+    //
+    // assume a maximum of 10 contacts and turn touch feedback off
+    //
+    InitializeTouchInjection(10, TOUCH_FEEDBACK_NONE);
+
+    //
+    // initialize the touch info structure
+    //
+    memset(&contact, 0, sizeof(POINTER_TOUCH_INFO));
+
+    contact.pointerInfo.pointerType = PT_TOUCH; //we're sending touch input
+    contact.pointerInfo.pointerId = 0;          //contact 0
+    contact.pointerInfo.pointerFlags = POINTER_FLAG_DOWN | POINTER_FLAG_INRANGE | POINTER_FLAG_INCONTACT;
+    contact.touchFlags = TOUCH_FLAG_NONE;
+    contact.touchMask = TOUCH_MASK_CONTACTAREA | TOUCH_MASK_ORIENTATION | TOUCH_MASK_PRESSURE;
+    contact.orientation = 90;
+    contact.pressure = 32000;
+    contact.pointerInfo.ptPixelLocation.x = 640;
+    contact.pointerInfo.ptPixelLocation.y = 480;
+
+		//
+    // set the contact area depending on thickness
+    //
+    contact.rcContact.top = 480 - 10;
+    contact.rcContact.bottom = 480 + 10;
+    contact.rcContact.left = 640 - 10;
+    contact.rcContact.right = 640 + 10;
+
+	    BOOL bRet = TRUE;
+
+	    bRet = InjectTouchInput(1, &contact);
+
+
+
+	//for (int i = 0; i < 100; i ++)
+	//{
+	//	//contact.rcContact.left--;
+	//	bRet = InjectTouchInput(1, &contact);
+	//	Sleep(100);
+	//}
+
+    //
+    // if touch down was succesfull, send a touch up
+    //
+    if (bRet) {
+        contact.pointerInfo.pointerFlags = POINTER_FLAG_UP;
+
+        //
+        // inject a touch up
+        //
+        InjectTouchInput(1, &contact);
+		OutputDebugString(L"injecting successfully!");
+    }
+
    pair<float, float>  my_pair(0,0);
    coordinate_mapping[27] = my_pair;
    my_pair.first = 2.3;
@@ -279,7 +333,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    my_pair.first = 2.6;
    my_pair.second = 5.3;
    coordinate_mapping[65] = my_pair;
-   my_pair.first = 4,5;
+   my_pair.first = 4.5;
    my_pair.second = 5.3;
    coordinate_mapping[83] = my_pair;
    my_pair.first = 6.4;
@@ -376,16 +430,84 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    return TRUE;
 }
 
+pair<float, float> getKeyPositionPixel(PKBDLLHOOKSTRUCT key)
+{
+	pair<float,float> positions(0,0);
+	positions.first = coordinate_mapping[key->vkCode].first * 1366 / 35.4208 * 14;
+	positions.second = coordinate_mapping[key->vkCode].second * 768 / 19.9 * 17;
+
+	return positions;
+}
+
+float getDistKeys(PKBDLLHOOKSTRUCT prevKey, PKBDLLHOOKSTRUCT currentKey)
+{
+	pair<float,float> p1 = getKeyPositionPixel (prevKey);
+	pair<float,float> p2 = getKeyPositionPixel (currentKey);
+
+	return sqrt((p1.first - p2.first)*(p1.first - p2.first) + (p1.second - p2.second)*(p1.second - p2.second));
+}
+
 bool isAdjacent(PKBDLLHOOKSTRUCT prevKey, PKBDLLHOOKSTRUCT currentKey)
 {
-	return false;
+	if (getDistKeys(prevKey, currentKey) >= 73.27*3 )
+	{
+		return false;
+	}
+	return true;
+}
+
+void moveKeyPosition(PKBDLLHOOKSTRUCT prevKey, PKBDLLHOOKSTRUCT currentKey)
+{
+    pair<float,float> p1 = getKeyPositionPixel (prevKey);
+	pair<float,float> p2 = getKeyPositionPixel (currentKey);
+	mouse_input.mi.dx +=  (p2.first - p1.first) * 12;
+	mouse_input.mi.dy +=  (p2.second - p1.second) * 12;
+	OutputDebugString((L"mousedx:" + to_wstring(mouse_input.mi.dx)).c_str());
+	OutputDebugString((L"mousedy:" + to_wstring(mouse_input.mi.dy)).c_str());
+	SendInput(1,&mouse_input,sizeof(mouse_input));
+}
+
+void jumpKeyPosition(PKBDLLHOOKSTRUCT prevKey, PKBDLLHOOKSTRUCT currentKey)
+{
+
+	if (getDistKeys(prevKey, currentKey) <= 2000)
+	{
+    pair<float,float> p1 = getKeyPositionPixel (prevKey);
+	pair<float,float> p2 = getKeyPositionPixel (currentKey);
+
+	//long dt = currentKey->time - prevKey->time;
+	//long vx = (p2.first - p1.first) / dt;
+	//long vy = (p2.second - p1.second) / dt;
+
+	mouse_input.mi.dx +=  (p2.first - p1.first) * 2;
+	mouse_input.mi.dy +=  (p2.second - p1.second) * 2.5;
+
+	//contact.pointerInfo.ptPixelLocation.x = mouse_input.mi.dx;
+    //contact.pointerInfo.ptPixelLocation.y = mouse_input.mi.dy;
+
+	contact.rcContact.top = mouse_input.mi.dy - 10;
+    contact.rcContact.bottom = mouse_input.mi.dy + 10;
+    contact.rcContact.left = mouse_input.mi.dx - 10;
+    contact.rcContact.right = mouse_input.mi.dx + 10;
+	//contact.pointerInfo.pointerFlags = POINTER_FLAG_DOWN | POINTER_FLAG_INRANGE | POINTER_FLAG_INCONTACT;
+
+	//for (int i = 0; i < 100; i++)
+	//{
+	//	InjectTouchInput(1, &contact);
+	//	Sleep(10);
+	//}
+
+	OutputDebugString((L"mousedx:" + to_wstring(mouse_input.mi.dx)).c_str());
+	OutputDebugString((L"mousedy:" + to_wstring(mouse_input.mi.dy)).c_str());
+	SendInput(1,&mouse_input,sizeof(mouse_input));
+	} 
 }
 
 LRESULT CALLBACK LowLevelKeyboardProc( int nCode,
                                        WPARAM wParam,
                                        LPARAM lParam)
 {
- 
+  bool handled = true;
   BOOL fEatKeystroke = FALSE;
   if (nCode == HC_ACTION)
   {
@@ -399,43 +521,70 @@ LRESULT CALLBACK LowLevelKeyboardProc( int nCode,
  
            // Get hook struct
            PKBDLLHOOKSTRUCT p = ( PKBDLLHOOKSTRUCT ) lParam;
-		   
+		   tagKBDLLHOOKSTRUCT clone;
+		   clone.vkCode = p->vkCode;
+		   clone.time = p->time;
+
 		   // adding the key to the buffer
-		   buffer.push_back (p);
+		   buffer.push_back (clone);
 		   // keeping the buffer size constant
 		   if (buffer.size() > 100) {
 			   buffer.erase(buffer.begin());
 		   }
 
-		   if (state == MOUSESTATE && buffer.size() >= 40)
+		   //if (state == MOUSESTATE && buffer.size() >= 40)
+		   //{
+			  // bool dragState = true;
+			  // int dragNum = 40;
+			  // for (int i = 0; i < dragNum; i++)
+			  // {
+				 //  if (p->vkCode != buffer[0]->vkCode )
+				 //  {
+					//   dragState = false;
+				 //  }
+			  // }
+
+			  // // if detecting drag, change state to touch
+			  // if (dragState == true) state = TOUCHSTATE ;
+		   //}
+
+		   if (state == MOUSESTATE && p->vkCode != 32)
 		   {
-			   bool dragState = true;
-			   int dragNum = 40;
-			   for (int i = 0; i < dragNum; i++)
+			   int previousIndex = buffer.size () - 3;
+			   PKBDLLHOOKSTRUCT prevKey;
+			   if (previousIndex >= 0)
 			   {
-				   if (p->vkCode != buffer[0]->vkCode )
+				   prevKey = &buffer[previousIndex];
+				   if (isAdjacent(prevKey, p))
 				   {
-					   dragState = false;
+					   moveKeyPosition(prevKey , p);
+				   } else {
+					   OutputDebugString (L"jumping keys\n");
+					   jumpKeyPosition (prevKey, p);
 				   }
-			   }
-
-			   // if detecting drag, change state to touch
-			   if (dragState == true) state = TOUCHSTATE ;
+			   }  
 		   }
-
-		   if (state == MOUSESTATE)
+		   else if (state == TOUCHSTATE)
 		   {
-			   if (isAdjacent(buffer[0], p))
-			   {
-			   } else {
-			   }
-		   }
-		   else
-		   {
-			   if (isAdjacent(buffer[0], p))
-			   {
-			   } else {
-			   }
+			  int previousIndex = buffer.size () - 3;
+			  PKBDLLHOOKSTRUCT prevKey;
+			  if (previousIndex >= 0)
+			  {
+				   prevKey = &buffer[previousIndex];
+				   if (contact.pointerInfo.pointerFlags == POINTER_FLAG_UP)
+				   {
+					   contact.pointerInfo.pointerFlags = POINTER_FLAG_DOWN | POINTER_FLAG_INRANGE | POINTER_FLAG_INCONTACT;
+					   jumpKeyPosition (prevKey, p);
+				   } else {
+					   if (getDistKeys(prevKey, p) <= 2000) {
+						   contact.pointerInfo.pointerFlags = POINTER_FLAG_UPDATE | POINTER_FLAG_INRANGE | POINTER_FLAG_INCONTACT;
+					   } else {
+						    contact.pointerInfo.pointerFlags =  POINTER_FLAG_UP;
+					   }
+					   jumpKeyPosition (prevKey, p);
+				   }
+				   
+			  }
 		   }
 
 		   wstring s = std::to_wstring(p->vkCode);
@@ -478,6 +627,30 @@ LRESULT CALLBACK LowLevelKeyboardProc( int nCode,
 				   mouse_input.mi.dx +=  50 ;
 			       SendInput(1,&mouse_input,sizeof(mouse_input));
 				   break;
+			case 32:
+					mouse_input.mi.mouseData = XBUTTON1;
+					mouse_input.mi.dwFlags = MOUSEEVENTF_LEFTDOWN;
+					SendInput(1,&mouse_input,sizeof(mouse_input));
+					mouse_input.mi.mouseData = XBUTTON1;
+					mouse_input.mi.dwFlags = MOUSEEVENTF_LEFTUP;
+					SendInput(1,&mouse_input,sizeof(mouse_input));
+					mouse_input.mi.dwFlags = MOUSEEVENTF_ABSOLUTE | MOUSEEVENTF_MOVE;
+					mouse_input.mi.mouseData = 0;
+					break;
+			case 192:
+					mouse_input.mi.dx = 300;
+					mouse_input.mi.dy = 300;
+					SendInput(1,&mouse_input,sizeof(mouse_input));
+				    break;
+			case 27: // give same his escape button
+					handled = false;
+					break;
+			case 91: // give same his window button
+					handled = false;
+					break;
+			case 164: // toggle the state
+					state = !state;
+					break;
 			}
  
      }// End switch
@@ -485,7 +658,12 @@ LRESULT CALLBACK LowLevelKeyboardProc( int nCode,
  
    // Did we trap a key??
    //return( fEatKeystroke ? 1 : CallNextHookEx( NULL, nCode, wParam, lParam ));
-  return 1;
+  if (handled)
+  {
+	    return 1;
+  } else {
+		return CallNextHookEx( NULL, nCode, wParam, lParam );
+  }
 }// End LowLevelKeyboardProc
  
 // This function attaches a low level keyboard hook to the system and logs key strokes
